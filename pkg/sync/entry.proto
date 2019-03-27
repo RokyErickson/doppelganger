@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package sync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/sync";
+
+enum EntryKind {
+    Directory = 0;
+    File = 1;
+    Symlink = 2;
+}
+
+message Entry {
+
+    EntryKind kind = 1;
+    map<string, Entry> contents = 5;
+    bytes digest = 8;
+    bool executable = 9;
+    string target = 12;
+}

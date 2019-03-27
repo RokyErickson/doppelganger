@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package filesystem;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/filesystem";
+
+enum WatchMode {
+    WatchModeDefault = 0;
+    WatchModePortable = 1;
+    WatchModeForcePoll = 2;
+    WatchModeNoWatch = 3;
+}

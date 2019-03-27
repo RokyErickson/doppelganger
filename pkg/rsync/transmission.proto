@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package rsync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/rsync";
+
+import "rsync/engine.proto";
+
+message Transmission {
+    bool done = 1;
+    Operation operation = 2;
+    string error = 3;
+}

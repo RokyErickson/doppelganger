@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package sync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/sync";
+
+enum SymlinkMode {
+    SymlinkDefault = 0;
+    SymlinkIgnore = 1;
+    SymlinkPortable = 2;
+    SymlinkPOSIXRaw = 3;
+}

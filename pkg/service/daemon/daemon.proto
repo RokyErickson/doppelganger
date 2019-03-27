@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package daemon;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/service/daemon";
+
+message VersionRequest{}
+
+message VersionResponse {
+    uint64 major = 1;
+    uint64 minor = 2;
+    uint64 patch = 3;
+}
+
+message TerminateRequest{}
+
+message TerminateResponse{}
+
+service Daemon {
+    rpc Version(VersionRequest) returns (VersionResponse) {}
+    rpc Terminate(TerminateRequest) returns (TerminateResponse) {}
+}

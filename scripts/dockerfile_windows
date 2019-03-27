@@ -1,0 +1,4 @@
+
+FROM microsoft/windowsservercore
+RUN net user /add george
+ENTRYPOINT powershell -Command sleep 6000

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package sync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/sync";
+
+import "sync/entry.proto";
+
+message Archive {
+    Entry root = 1;
+}

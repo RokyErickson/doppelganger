@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package rsync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/rsync";
+
+message ReceiverStatus {
+    string path = 1;
+    uint64 received = 2;
+    uint64 total = 3;
+}

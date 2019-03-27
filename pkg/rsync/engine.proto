@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rsync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/rsync";
+
+message BlockHash {
+    uint32 weak = 1;
+    bytes strong = 2;
+}
+message Signature {
+    uint64 blockSize = 1;
+    uint64 lastBlockSize = 2;
+    repeated BlockHash hashes = 3;
+}
+
+message Operation {
+    bytes data = 1;
+    uint64 start = 2;
+    uint64 count = 3;
+}

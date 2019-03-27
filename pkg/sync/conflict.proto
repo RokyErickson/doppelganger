@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package sync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/sync";
+
+import "sync/change.proto";
+
+message Conflict {
+    repeated Change alphaChanges = 1;
+    repeated Change betaChanges = 2;
+}

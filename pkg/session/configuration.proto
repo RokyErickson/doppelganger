@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package session;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/session";
+
+import "filesystem/watch.proto";
+import "sync/ignore.proto";
+import "sync/mode.proto";
+import "sync/symlink.proto";
+
+message Configuration {
+    sync.SynchronizationMode synchronizationMode = 11;
+    uint64 maximumEntryCount = 12;
+    uint64 maximumStagingFileSize = 13;
+    sync.SymlinkMode symlinkMode = 1;
+    filesystem.WatchMode watchMode = 21;
+    uint32 watchPollingInterval = 22;
+    repeated string defaultIgnores = 31;
+    repeated string ignores = 32;
+    sync.IgnoreVCSMode ignoreVCSMode = 33;
+    uint32 defaultFileMode = 63;
+    uint32 defaultDirectoryMode = 64;
+    string defaultOwner = 65;
+    string defaultGroup = 66;
+}

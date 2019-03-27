@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package sync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/sync";
+
+import "google/protobuf/timestamp.proto";
+
+message CacheEntry {
+    uint32 mode = 1;
+    google.protobuf.Timestamp modificationTime = 2;
+    uint64 size = 3;
+    uint64 fileID = 4;
+    bytes digest = 9;
+}
+
+message Cache {
+    map<string, CacheEntry> entries = 1;
+}

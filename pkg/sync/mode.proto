@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package sync;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/sync";
+
+enum SynchronizationMode {
+    SynchronizationModeDefault = 0;
+    SynchronizationModeTwoWaySafe = 1;
+    SynchronizationModeTwoWayResolved = 2;
+    SynchronizationModeOneWaySafe = 3;
+    SynchronizationModeOneWayReplica = 4;
+}

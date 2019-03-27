@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package url;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/url";
+
+enum Protocol {
+    Local = 0;
+    SSH = 1;
+    Ipfs = 3;
+    MOSH = 4;
+    Docker = 11;
+}
+
+message URL {
+    Protocol protocol = 1;
+    string username = 2;
+    string hostname = 3;
+    uint32 port = 4;
+    string path = 5;
+    map<string, string> environment = 6;
+}

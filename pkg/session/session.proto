@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package session;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/session";
+
+import "google/protobuf/timestamp.proto";
+
+import "session/configuration.proto";
+import "url/url.proto";
+
+enum Version {
+    Invalid = 0;
+    Version1 = 1;
+}
+
+message Session {
+
+    string identifier = 1;
+    Version version = 2;
+    google.protobuf.Timestamp creationTime = 3;
+    uint32 creatingVersionMajor = 4;
+    uint32 creatingVersionMinor = 5;
+    uint32 creatingVersionPatch = 6;
+    url.URL alpha = 7;
+    url.URL beta = 8;
+    Configuration configuration = 9;
+    Configuration configurationAlpha = 11;
+    Configuration configurationBeta = 12;
+    bool paused = 10;
+}

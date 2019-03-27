@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package remote;
+
+option go_package = "github.com/RokyErickson/doppelganger/pkg/remote";
+
+import "rsync/engine.proto";
+import "session/configuration.proto";
+import "session/session.proto";
+import "sync/archive.proto";
+import "sync/change.proto";
+import "sync/problem.proto";
+
+message InitializeRequest {
+    string root = 1;
+    string session = 2;
+    session.Version version = 3;
+    session.Configuration configuration = 4;
+    bool alpha = 5;
+}
+
+message InitializeResponse {
+    string error = 1;
+}
+
+message PollRequest {}
+
+message PollCompletionRequest{}
+
+message PollResponse{
+    string error = 1;
+}
+
+message ScanRequest {
+    rsync.Signature baseSnapshotSignature = 1;
+}
+
+
+message ScanResponse {
+    repeated rsync.Operation snapshotDelta = 1;
+    bool preservesExecutability = 2;
+    string error = 3;
+    bool tryAgain = 4;
+}
+
+message StageRequest {
+    repeated string paths = 1;
+    repeated bytes digests = 2;
+}
+
+
+message StageResponse {
+    repeated string paths = 1;
+    repeated rsync.Signature signatures = 2;
+    string error = 3;
+}
+
+
+message SupplyRequest {
+    repeated string paths = 1;
+    repeated rsync.Signature signatures = 2;
+}
+
+
+message TransitionRequest {
+    repeated sync.Change transitions = 1;
+}
+
+
+message TransitionResponse {
+    repeated sync.Archive results = 1;
+    repeated sync.Problem problems = 2;
+    string error = 3;
+}
+
+message EndpointRequest {
+    PollRequest poll = 1;
+    ScanRequest scan = 2;
+    StageRequest stage = 3;
+    SupplyRequest supply = 4;
+    TransitionRequest transition = 5;
+}

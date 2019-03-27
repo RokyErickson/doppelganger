@@ -1,0 +1,43 @@
+version: "{build}"
+
+image: Visual Studio 2017
+
+clone_folder: C:\doppelganger
+
+environment:
+  GOROOT: C:\go111
+  GO111MODULE: "on"
+  MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
+  DOPPELGANGER_TEST_END_TO_END: "full"
+  DOPPELGANGER_TEST_DOCKER: "true"
+  DOPPELGANGER_TEST_DOCKER_IMAGE_NAME: doppelgangertest
+  DOPPELGANGER_TEST_DOCKER_CONTAINER_NAME: doppelgangertester
+  DOPPELGANGER_TEST_DOCKER_USERNAME: george
+init:
+  - set PATH=%GOROOT%\bin;%MINGW_PATH%\mingw64\bin;%PATH%
+
+build: off
+
+before_test:
+  - pip install codecov
+  - diskpart /s scripts\create_test_partitions_windows.txt
+  - set DOPPELGANGER_TEST_FAT32_ROOT=V:\
+  - scripts\setup_docker.bat
+
+test_script:
+  - go version
+  - go run scripts/build.go --mode=slim
+  - go test -p 1 -v -coverpkg=./pkg/... -coverprofile=coverage.txt ./pkg/...
+  - set DOPPELGANGER_TEST_END_TO_END=slim
+  - go test -p 1 -race ./pkg/...
+  - set DOPPELGANGER_TEST_END_TO_END=full
+  - set GOARCH=386
+  - go run scripts/build.go --mode=slim
+  - go test -p 1 ./pkg/...
+  - set GOARCH=amd64
+  - codecov -X gcov -f coverage.txt
+  - go run scripts/build.go --mode=testing
+
+after_test:
+  - scripts\teardown_docker.bat
+
